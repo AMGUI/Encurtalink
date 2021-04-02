@@ -1,23 +1,16 @@
 package link
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
 )
 
-type modeloconvesor struct {
-	id        string `json:"id"`
-	url       string `json:"url"`
-	linkMenor string `Json:"linkMenor`
-}
-
 //Datamode retorna um link alteraado
-func Datamode() {
+func Datamode(Url string) {
 
-	mode := modeloconvesor{}
+	modo := modeJason{}
 	jsonFile, err := os.Open(`url.json`)
 
 	if err != nil {
@@ -28,10 +21,22 @@ func Datamode() {
 	//Aqui o arquivo é convertido para uma variável array de bytes, através do pacote "io/ioutil"
 	byteValueJSON, _ := ioutil.ReadAll(jsonFile)
 
-	fmt.Println(bytes.NewBuffer(byteValueJSON))
-	json.Unmarshal(byteValueJSON, &mode)
-	fmt.Println(mode)
+	//fmt.Println(bytes.NewBuffer(byteValueJSON))
+	json.Unmarshal(byteValueJSON, &modo)
+
+	newMode, _ := json.Marshal(AddnovoLink(modo, Url))
+	ioutil.WriteFile("url.json", newMode, 0644)
+	fmt.Println(AddnovoLink(modo, Url))
+
+	fmt.Println(modo)
 
 	defer jsonFile.Close()
 
+}
+
+func AddnovoLink(mNewstruct modeJason, url string) modeJason {
+	mNewstruct.ID += 1
+	mNewstruct.URL = url
+	mNewstruct.LinkMenor = "APPLINK" + string(mNewstruct.ID)
+	return mNewstruct
 }

@@ -9,6 +9,6 @@ func main() {
 	//caminho := "C:\\Users\\andre\\Desktop\\Devi\\Brincado_com_Gozinho"
 
 	fmt.Println("## Inicio ##")
-	link.Datamode()
+	link.Datamode("https://www.google.com/")
 
 }
