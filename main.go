@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"modulo/link"
+	//"modulo/link"
 	"modulo/net"
 )
 
 func main() {
 
 	fmt.Println("## Inicio ##")
-	link.Datamode("https://www.google.com/")
+	//link.Datamode("https://www.google.com/")
 
-	net.ServerLocal()
+	//net.ServerLocal()
+	net.ConnectionData()
 
 }
