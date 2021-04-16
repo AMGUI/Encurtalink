@@ -10,7 +10,7 @@ import (
 //Datamode retorna um link alteraado
 func Datamode(Url string) {
 
-	modo := modeJason{}
+	modo := ModeJason{}
 	jsonFile, err := os.Open(`url.json`)
 
 	if err != nil {
@@ -26,15 +26,15 @@ func Datamode(Url string) {
 
 	newMode, _ := json.Marshal(AddnovoLink(modo, Url))
 	ioutil.WriteFile("url.json", newMode, 0644)
-	fmt.Println(AddnovoLink(modo, Url))
+	//fmt.Println(AddnovoLink(modo, Url))
 
-	fmt.Println(modo)
+	//fmt.Println(modo)
 
 	defer jsonFile.Close()
 
 }
 
-func AddnovoLink(mNewstruct modeJason, url string) modeJason {
+func AddnovoLink(mNewstruct ModeJason, url string) ModeJason {
 	mNewstruct.ID += 1
 	mNewstruct.URL = url
 	mNewstruct.LinkMenor = "APPLINK" + string(mNewstruct.ID)

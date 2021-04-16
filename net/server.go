@@ -1,22 +1,31 @@
 package net
 
 import (
-	"html/template"
 	"net/http"
-)
 
-var templates *template.Template
+	"github.com/gorilla/mux"
+)
 
 func ServerLocal() {
 
-	templates = template.Must(template.ParseGlob("*.html"))
+	router := mux.NewRouter()
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/", Inicial)
+	router.HandleFunc("/newLink", PostLink).Methods(http.MethodPost)
 
-		templates.ExecuteTemplate(w, "home.html", nil)
-
-	})
-
-	http.ListenAndServe(":8081", nil)
+	http.ListenAndServe(":8081", router)
 
 }
+
+/*
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hi everyone, i like %s!", r.URL.Path[1:])
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    log.Fatal(http.ListenAndServe(":8000", nil))
+}
+
+*/
