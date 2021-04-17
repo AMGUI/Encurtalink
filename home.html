@@ -14,7 +14,7 @@
     <h1>Teste de serviço </h1>
 
     <form>
-        <label for="furl">Url:</label><br>
+        <label >Url:</label><br>
         <input type="text" id="UrlLink" name="UrlLink">
         <button type="submit" onclick="obterValor()">Validar</button>
         <br>
@@ -27,22 +27,23 @@
        
        let linkDeUrl = document.getElementById('UrlLink'); 
        
-       let dados = {
-           id: 0,
-           url: linkDeUrl,
-           LinkMenor: "link2000",
-       }
        
-       
-       function obterValor(dados) {
+       function obterValor( dados = {
+           id: 1,
+           url: linkDeUrl.value,
+           LinkMenor   : "link2000",
+           
+       }) {
+           event.preventDefault();
+           // alert(`${dados.id + dados.url + dados.LinkMenor}` )
             fetch('http://localhost:8081/newLink', {
                 method: "POST",
                 body: JSON.stringify(dados),
                 headers: {"Content-type": "application/json; charset=UTF-8"}
             })
-            .then(response => response.json())
+           // .then(response => response.json())
             .then(json => console.log(json))
-            .cath(err => console.log(err))
+            .catch(err => console.log(err))
         }
 
     </script>
