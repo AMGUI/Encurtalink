@@ -1,6 +1,7 @@
 package link
 
 import (
+	//"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -9,8 +10,8 @@ import (
 )
 
 //Datamode retorna um link alteraado
-func Datamode(Url string) {
-
+func Datamode(Url string) ModeJason {
+	var dadoRetornoBanco ModeJason
 	modo := make([]ModeJason, 0)
 	jsonFile, err := os.Open(`urls.json`)
 
@@ -26,7 +27,10 @@ func Datamode(Url string) {
 	json.Unmarshal(byteValueJSON, &modo)
 
 	//	newMode, _ := json.Marshal(AddnovoLink(modo, Url))
-	result, err := json.Marshal(AddnovoLinkV2(modo, Url))
+	estruturaDB := AddnovoLinkV2(modo, Url)
+	//result, err := json.Marshal(AddnovoLinkV2(modo, Url))
+	result, err := json.Marshal(estruturaDB)
+	//fmt.Println(estruturaDB[len(estruturaDB)-1])
 
 	if err != nil {
 
@@ -36,9 +40,9 @@ func Datamode(Url string) {
 	ioutil.WriteFile("urls.json", result, 0644)
 	//fmt.Println(AddnovoLink(modo, Url))
 
-	//fmt.Println(modo)
-
 	defer jsonFile.Close()
+	dadoRetornoBanco = estruturaDB[len(estruturaDB)-1]
+	return dadoRetornoBanco
 
 }
 

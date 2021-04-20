@@ -36,6 +36,6 @@ func PostLink(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	link.Datamode(bodyJson.URL)
+	PostBanco(link.Datamode(bodyJson.URL))
 
 }

@@ -11,5 +11,5 @@ func main() {
 	fmt.Println("## Inicio ##")
 
 	net.ServerLocal()
-
+	//net.PostBanco(link.Datamode("tesxte1"))
 }
